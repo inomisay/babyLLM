@@ -1,0 +1,2 @@
+# Brain files are large: store them with Git LFS
+*.pt filter=lfs diff=lfs merge=lfs -text

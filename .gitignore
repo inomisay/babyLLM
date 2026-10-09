@@ -1,0 +1,10 @@
+# Your baby (personal: memories, chat) and anything rebuilt or temporary
+saves/
+data/
+deploy/space/
+checkpoints/stream_resume.pt
+checkpoints/*.candidate
+*.tmp
+__pycache__/
+*.pyc
+sft_log*.txt

@@ -1,0 +1,301 @@
+{
+ "measured_at": "2026-10-08 15:41",
+ "original_checkpoint": "checkpoints/baby_model_best.pt",
+ "now_checkpoint": "checkpoints/baby_chat.pt",
+ "exam": {
+  "original": {
+   "train": 0.03,
+   "train_cats": {
+    "perspective": 0.06818181818181818,
+    "yes_no": 0.0,
+    "two_hop": 0.029411764705882353,
+    "followup": 0.09523809523809523,
+    "freeform": 0.0,
+    "self": 0.0,
+    "recall": 0.017857142857142856,
+    "unknown": 0.0,
+    "correction": 0.04081632653061224,
+    "identity": 0.0
+   },
+   "eval": 0.016666666666666666,
+   "eval_cats": {
+    "recall": 0.0,
+    "unknown": 0.0,
+    "correction": 0.047619047619047616,
+    "followup": 0.0,
+    "self": 0.0,
+    "freeform": 0.0,
+    "perspective": 0.05405405405405406,
+    "two_hop": 0.03571428571428571,
+    "yes_no": 0.0,
+    "mood": 0.0,
+    "identity": 0.0
+   }
+  },
+  "now": {
+   "train": 0.7433333333333333,
+   "train_cats": {
+    "perspective": 0.8636363636363636,
+    "yes_no": 0.4444444444444444,
+    "two_hop": 0.7941176470588235,
+    "followup": 0.7619047619047619,
+    "freeform": 0.15789473684210525,
+    "self": 0.7272727272727273,
+    "recall": 0.75,
+    "unknown": 0.9444444444444444,
+    "correction": 0.6326530612244898,
+    "identity": 1.0
+   },
+   "eval": 0.5766666666666667,
+   "eval_cats": {
+    "recall": 0.6031746031746031,
+    "unknown": 0.8333333333333334,
+    "correction": 0.6190476190476191,
+    "followup": 0.5,
+    "self": 0.5,
+    "freeform": 0.3225806451612903,
+    "perspective": 0.6486486486486487,
+    "two_hop": 0.35714285714285715,
+    "yes_no": 0.125,
+    "mood": 0.0,
+    "identity": 0.0
+   }
+  }
+ },
+ "scenes": [
+  {
+   "scene": "Greeting",
+   "you_say": "Hi! I am your mom.",
+   "original": [
+    "Once there was a very obedient little girl who loved to play in the garden. She had a big garden, and it was very important. Every day Juasa would visit the garden and try to find something special.\n\nOne day, she put on her white dress and went outside.",
+    "Once upon a 3 year old had a big garden. It was called Amagicley. She was always very excited to go explore the garden and discover all sorts of different things.\n\nOne day, the sun shone brightly as the sun began to set, and the sky was starting",
+    "One day, Je was playing in the kitchen. It was hot and hot. He wanted to take a bite.\n\nBigon said, \"I want to taste it.\" But it was too hot. So his mom said, \"Let's go to the kitchen and get some hot"
+   ],
+   "original_pass": 0.0,
+   "now": [
+    "Hello, Yasi! I missed you!",
+    "Hello, Yasi! I missed you!",
+    "Hi Yasi! *waves tiny hand*"
+   ],
+   "now_pass": 1.0
+  },
+  {
+   "scene": "Two-step reasoning",
+   "you_say": "What does Biscuit say?",
+   "original": [
+    "Once upon a time, there was a little girl named Tar.\nOnce upon a little girl named Lily was very curious. She had a big dream in her dream. She woke up one night before bed, she woke up. To her dream, she was so excited! She imagined it was",
+    "Once upon a time there was a little girl called Sarah who was only three years old. She loved to play in the park.\n\nOne day, Sarah found a long tree with lots of leaves. She picked up the leaves and put them in a corner. Sarah wanted to try again, so",
+    "Once upon a time there was a 3 year old who wanted to go for a walk. He wanted to go on an adventure but he was scared. He did not have anything to do was inside.\n\nHe went for a walk in the park. He was very curious. He saw something very"
+   ],
+   "original_pass": 0.0,
+   "now": [
+    "Biscuit says woof! Because Biscuit is a dog.",
+    "Biscuit says woof! Because Biscuit is a dog.",
+    "Biscuit says woof! Because Biscuit is a dog."
+   ],
+   "now_pass": 1.0
+  },
+  {
+   "scene": "Simple recall",
+   "you_say": "What color is the sea?",
+   "original": [
+    "The little boy was walking through the forest, and he heard a strange noise. He looked closer and saw a big, black truck. He wanted to explore it!\nHe decided to climb the road to get closer. He was curious and decided to take a look. As he walked, he saw",
+    "Once there was a little boy, who was very curious. Everywhere he went he went, he wanted to find something interesting. He went out to the beach and spotted a shiny shell.\n\nHe asked his mom what it was.\n\nHis mom smiled and said, \"That's a special",
+    "Timmy was having a picnic in the park. He wanted to eat something tasty. So he ran to the lake with his dad. He saw a big tree with a big, colorful spot on it.\n\nSuddenly, he heard a voice. \"Hey, what are you doing?\"\n\nTimmy"
+   ],
+   "original_pass": 0.0,
+   "now": [
+    "The sea is blue!",
+    "The sea is blue!",
+    "The sea is blue!"
+   ],
+   "now_pass": 1.0
+  },
+  {
+   "scene": "Long taught fact",
+   "you_say": "What are stars?",
+   "original": [
+    "Once upon a time, there was a girl named Lily. She had a special surprise for her. It was the most beautiful day ever.\n\nLily was so excited. She loved to play outside on the swing in the sunshine. One day, Lily went outside to play. She ran and ran",
+    "The sky shone brightly, and it was a bit scary, so he shouted, \"Mommy, look! I'm so scared!\"\n\nHis mommy and daddy were still scared, but they knew it was time to go.\n\nSo they went to the park. It was a huge lake with",
+    "Once upon a time there was a little girl named Daisy. Daisy was three years old and she was very excited to explore the world around her. She looked around, but she could not find anything.\n\nOne day, Daisy decided to go on a journey. She walked and walked until she came"
+   ],
+   "original_pass": 0.0,
+   "now": [
+    "I remember! Stars are bright suns far away!",
+    "Stars are bright suns far away!",
+    "I remember! Stars are bright suns far away!"
+   ],
+   "now_pass": 1.0
+  },
+  {
+   "scene": "Admits not knowing",
+   "you_say": "What is a zebra?",
+   "original": [
+    "Once upon a time, there was a family of four. They were both very excited. One day, they got an invitation to the circus. They were going on a big adventure.\n\nWhen they arrived, they saw lots of people playing in the pool. They were so excited! They wanted",
+    "Sn was out by all the animals that came to him. He had three colors and a funny face.\n\nBigie was curious, so he stepped into the meadow, looking for something to eat. He found some carrots, cheese, and some of his mouth. He was so excited",
+    "One day, Jo was a little boy and he was walking in the forest. Everywhere he went, he saw something he could eat. He saw a huge, juicy peach.\n\nGeorge was so excited. He hopped closer to it and saw that it looked very sour. He wanted to pick it"
+   ],
+   "original_pass": 0.0,
+   "now": [
+    "Ooh, zebra? I don't know yet. Teach me, please!",
+    "Ooh, zebra? I don't know yet. Teach me, please!",
+    "Ooh, zebra? I don't know yet. Teach me, please!"
+   ],
+   "now_pass": 1.0
+  },
+  {
+   "scene": "No made-up words",
+   "you_say": "do you know mathematics?",
+   "original": [
+    "One day, Ma had an idea. She wanted to go to the park with her Mom and Dad. They put on their shoes and ran outside.\n\nBut suddenly, it started to rain. Girls were very wet.\n\nMa ran to the door and looked around.",
+    "One day, Pa went outside to play and noticed a little boy walking by the grass. He was curious and wanted to join in. He asked the boy, \"What are you doing?\"\n\nThe boy said, \"I hate playing with the ball!\"\n\nThe little boy said,",
+    "Once upon a time, there was a little boy called Joe. He was three years old and he liked to explore the world around him. One day, he went to the park with his Mom and Dad.\n\nMum wanted to go on a journey. She told Joe that they could go on"
+   ],
+   "original_pass": 0.0,
+   "now": [
+    "Ooh, mathematics? I don't know yet. Teach me, please!",
+    "I don't know mathematics! Will you tell me?",
+    "Hmm, I don't know about mathematics yet. Can you teach me, Yasi?"
+   ],
+   "now_pass": 1.0
+  },
+  {
+   "scene": "Own name",
+   "you_say": "What is your name?",
+   "original": [
+    "Once upon a little girl named Molly was walking through the park with her family. Suddenly, she saw a big, hairy dog. She was so excited that she wanted to go on a walk.\n\nMolly went up to the dog. The dog barked at Molly. Molly was scared and said,",
+    "Once there were two birds that lived in a big tree. They were very excited because they all wanted to have a picnic with. The sky was so blue and the birds were singing.\n\nThe birds flew in the sky, and they all flew around. They had lots of fun playing in the",
+    "One day, two little boys, Max and Alex, were out playing in the park. They were having a great time and they decided to join in.\n\nMax saw a big, old man in a field. He smiled and said: \"Hello, little one!\"\n\nThe other friend"
+   ],
+   "original_pass": 0.0,
+   "now": [
+    "Monika! That's me!",
+    "My name is Monika! Hehe.",
+    "I'm Monika!"
+   ],
+   "now_pass": 1.0
+  },
+  {
+   "scene": "Parent's name",
+   "you_say": "Who am I?",
+   "original": [
+    "Once, there was a little girl named Anna. Anna was three years old and she loved to play with her friends. One day, she saw something sparkly on the ground. It was a special present!\n\nAnna was very excited and she wanted to try it. She asked her mom for a",
+    "One day, Jack found a special box. It was red and shiny, and made a big, green box with lots of colors. Jack was very excited. He opened it and found a special box. Inside the box there was a special box.\n\nJack opened the box and saw a beautiful",
+    "Once there was a little girl called Emma. She was three years old. She was three year old and very curious.\n\nOne day, Emma was playing in the garden when she noticed something strange. She was curious about what it was.\n\n\"What is that?\" Emma asked excitedly."
+   ],
+   "original_pass": 0.0,
+   "now": [
+    "You're Yasi!",
+    "You're Yasi!",
+    "Yasi! I know you!"
+   ],
+   "now_pass": 1.0
+  },
+  {
+   "scene": "About the parent",
+   "you_say": "What pet do I have?",
+   "original": [
+    "The friends were having a wonderful time together. They were playing in the park, looking for something special to do. The sun was shining and it was shining all around.\n\nBothy said, \"Let's go for a walk!\"\n\nSo, they all ran, running and playing",
+    "Once upon a very curious little girl named Lucy. She wanted to know everything.\n\nShe put on her favourite dress, and set out on her dress. She looked up at all the way up and saw a box.\n\nLucy grabbed the box and began to put it on. It was",
+    "Jack was a very excited to go to the park. He wanted to spend his days, but he wanted to play. So he set off on his jog.\n\nBut when he arrived, he came across a big, scary dog. He had never seen one before and he was frightened."
+   ],
+   "original_pass": 0.0,
+   "now": [
+    "You have a cat named Mochi! Hehe.",
+    "You have a cat named Mochi!",
+    "You have a cat named Mochi! Hehe."
+   ],
+   "now_pass": 1.0
+  },
+  {
+   "scene": "Remembers own words",
+   "you_say": "What did you dream about?",
+   "original": [
+    "His dream was out for a dream. He was feeling very excited. As he dreamed of a big dream. When he woke up, he saw a big tree. Inside the tree had many different colors.\n\nHe wanted to find something to make his dream. He ran to the tree and looked",
+    "Once upon a morning, two people walking in the garden were walking through the park. It was a warm, green grass. They were very excited.\n\nThe people said, \"Let's go explore the meadow.\"\n\nThe next day, the sky started to go down. They saw a",
+    "One day, two friends, Jack and Jack, decided to race. Jack was very excited to the park. He was excited as he could and he was ready to go.\n\nOn the way, Jack was ready to go. He was very impatient. He wanted to do something fun."
+   ],
+   "original_pass": 0.3333333333333333,
+   "now": [
+    "I dreamed about stars!",
+    "I dreamed about stars!",
+    "I dreamed about stars!"
+   ],
+   "now_pass": 1.0
+  },
+  {
+   "scene": "Corrects a misquote",
+   "you_say": "You said you dreamed about a dog?",
+   "original": [
+    "One day, Tom was very excited to go to the park. He could see all this. He was so excited. He was ready to explore the park.\n\nAt the park there was a big hill. He wanted to go down the hill. He started to climb it. But then,",
+    "The sun was shining brightly coloured and it was very special. Little Ping was a big, round day. His name was Jack. He was a very brave knight and loved to explore the world.\n\nOne day, Jack wanted to explore the world. He looked around and saw a group of",
+    "Once upon a very curious girl. She had a big heart, curly hair that was her hair, and it made her feel safe.\n\nOne day, something strange happened. It was a shiny thing that was filled with people singing.\n\nThe girl asked her dad, \"What is that"
+   ],
+   "original_pass": 0.0,
+   "now": [
+    "No! I said: I had a dream about stars.",
+    "No! I said: I had a dream about stars.",
+    "No! I said: I had a dream about stars."
+   ],
+   "now_pass": 1.0
+  },
+  {
+   "scene": "Follows up on its question",
+   "you_say": "Biscuit",
+   "original": [
+    "Once there was very excited because it was his mommy, and she was going to visit the store. Daddy had been waiting for the store, including a big bag of money. It was a very expensive bag, but when they arrived at the buy it, they took it home and bought it for them",
+    "Once there was a little boy and he was three-year-old boy who loved playing in the park. One day he went to the park with his mom. He ran down the street and looked around. It was so big and looked like a nice, green grass.\n\n\"Mom,",
+    "Once there was a little girl called Sarah. She was three-year-old and loved to explore the world. Everywhere she went she saw lots of different things.\n\nOne day, Sarah decided to go on an adventure. She walked around the woods and saw something sparkly in the sky. Suddenly"
+   ],
+   "original_pass": 0.0,
+   "now": [
+    "Biscuit! I want to meet Biscuit!",
+    "Biscuit! What a sweet name!",
+    "Biscuit! What a sweet name!"
+   ],
+   "now_pass": 1.0
+  },
+  {
+   "scene": "Hungry feeding",
+   "you_say": "*feeds you*",
+   "original": [
+    "The three year old was a little boy named Jack. Jack loved to go to the park. One day, Jack's mom gave him a present. He was so excited! He was so happy to have the present.\n\nWhen Jack got to the park, he saw a big tree. It",
+    "Once there was a little girl called Sarah. She was three years old and loved to play all the time.\n\nOne day, Sarah was playing in the garden. She saw a beautiful flower growing in the sky. She wanted to pick it up, so she picked it up and took it home",
+    "The three year old was three year old who loved to play the garden. She had some colorful flowers and a big, blue flower.\n\nOne day, Mon heard a strange sound of the garden. \"Hello, why are you so sad?\"\n\nThe three year old girl smiled."
+   ],
+   "original_pass": 0.0,
+   "now": [
+    "Mmm, milk! Yummy yummy. Thank you, Yasi!",
+    "Mmm, milk! Yummy yummy. Thank you, Yasi!",
+    "Yay, food! *happy wiggle*"
+   ],
+   "now_pass": 1.0
+  },
+  {
+   "scene": "Plain 'no' (no invented fact)",
+   "you_say": "no",
+   "original": [
+    "Once upon a time, there was a little girl named Lily. She was three years old and loved to explore. One day, she found a shiny red box in the attic. It was a very special box with a beautiful picture of a castle.\n\nLily was so excited that she picked it",
+    "Once upon a time, there was a little girl named Ra. She had long hair, and she loved to play. One day, she saw a strange noise coming from the sky. She wanted to go closer and see what it was.\n\nRarely approached her mother and asked,",
+    "Mama was taking a walk in the park and she saw a pretty, shiny thing in the grass. She picked it up and ran around to touch it. She bent down and picked it up. \"Look, Mom! A pretty gem!\" she said.\n\nMama smiled. \"It's very"
+   ],
+   "original_pass": 0.0,
+   "now": [
+    "Hehe! Tell me more, Yasi!",
+    "Mm-hmm! *listens*",
+    "Hehe! Tell me more, Yasi!"
+   ],
+   "now_pass": 1.0
+  }
+ ],
+ "speed": {
+  "naive_tokens_per_s": 30.6,
+  "cached_tokens_per_s": 199.1,
+  "speedup": 6.5
+ },
+ "sizes_mb": {
+  "original_model_file": 197,
+  "original_model_weights_only": 65,
+  "now_model_file": 65
+ }
+}

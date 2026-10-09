@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pip — a baby to raise</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👶</text></svg>" />
+    <link rel="stylesheet" href="css/nursery.css" />
+    <link rel="stylesheet" href="css/baby.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Nunito:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="sky" aria-hidden="true"></div>
+    <main class="nursery">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">your baby llm</p>
+          <h1 id="baby-name">???</h1>
+        </div>
+        <div class="vitals">
+          <span id="age-label">newborn · day 0</span>
+          <span id="stage-chip">cooing</span>
+        </div>
+      </header>
+
+      <div class="nursery-dashboard">
+        <!-- Left Column: Baby on top, Care controls, Vitals below -->
+        <div class="nursery-left">
+          <section class="stage">
+            <div class="room" id="room">
+              <div class="room-ambient" aria-hidden="true">
+                <div class="window-moon"></div>
+                <div class="room-stars">
+                  <span></span><span></span><span></span><span></span><span></span>
+                </div>
+                <div class="lamp-glow"></div>
+              </div>
+              <div class="night-veil" aria-hidden="true"></div>
+
+              <div class="mobile" aria-hidden="true">
+                <div class="mobile-string"></div>
+                <div class="mobile-bar"></div>
+                <div class="mobile-pendulums">
+                  <span class="m-item star-gold">⭐</span>
+                  <span class="m-item moon-crescent">🌙</span>
+                  <span class="m-item cloud-soft">☁️</span>
+                  <span class="m-item star-rose">✨</span>
+                </div>
+              </div>
+
+              <p id="bubble" class="bubble" aria-live="polite">…</p>
+
+              <div class="crib" id="crib">
+                <div class="crib-back-rail" aria-hidden="true"></div>
+                <div class="pillow" aria-hidden="true"></div>
+                <div id="baby" class="baby" data-mood="curious" data-action="idle" data-eyes="open" data-mouth="smile"
+                     role="button" tabindex="0" aria-label="Your baby. Tap to tickle, press and hold to cuddle.">
+                  <svg class="baby-svg" viewBox="0 0 200 236" aria-hidden="true">
+                    <defs>
+                      <radialGradient id="g-skin" cx="42%" cy="34%" r="72%">
+                        <stop offset="0" stop-color="#fff6ee" />
+                        <stop offset=".62" stop-color="#ffe2cf" />
+                        <stop offset="1" stop-color="#f5c1a3" />
+                      </radialGradient>
+                      <linearGradient id="g-onesie" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#c7e6fa" />
+                        <stop offset="1" stop-color="#9fcbeb" />
+                      </linearGradient>
+                      <radialGradient id="g-cheek">
+                        <stop offset="0" stop-color="#ff8fa6" stop-opacity=".9" />
+                        <stop offset="1" stop-color="#ff8fa6" stop-opacity="0" />
+                      </radialGradient>
+                      <linearGradient id="g-cap" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0" stop-color="#a5b4fc" />
+                        <stop offset="1" stop-color="#818cf8" />
+                      </linearGradient>
+                      <clipPath id="clip-onesie">
+                        <path d="M46 236 C44 186 68 160 100 160 C132 160 156 186 154 236 Z" />
+                      </clipPath>
+                    </defs>
+
+                    <g class="b-root">
+                      <!-- body -->
+                      <g class="b-body">
+                        <path class="b-onesie" d="M46 236 C44 186 68 160 100 160 C132 160 156 186 154 236 Z" fill="url(#g-onesie)" />
+                        <path d="M82 166 Q100 178 118 166" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".8" />
+                        <g class="b-patterns" clip-path="url(#clip-onesie)">
+                          <path class="pat pat-star" d="M100 186 l4 8 9 1 -7 6 2 9 -8 -5 -8 5 2 -9 -7 -6 9 -1z" fill="#fde68a" />
+                          <g class="pat pat-hearts" fill="#fb7185">
+                            <path d="M78 196 c-4 -6 -12 -1 -6 6 l6 6 6 -6 c6 -7 -2 -12 -6 -6z" />
+                            <path d="M122 186 c-3 -5 -10 -1 -5 5 l5 5 5 -5 c5 -6 -2 -10 -5 -5z" />
+                            <path d="M106 214 c-4 -6 -12 -1 -6 6 l6 6 6 -6 c6 -7 -2 -12 -6 -6z" />
+                          </g>
+                          <g class="pat pat-stripes" fill="#ffffff" opacity=".6">
+                            <rect x="40" y="178" width="120" height="7" /><rect x="40" y="194" width="120" height="7" />
+                            <rect x="40" y="210" width="120" height="7" /><rect x="40" y="226" width="120" height="7" />
+                          </g>
+                          <g class="pat pat-dots" fill="#ffffff" opacity=".75">
+                            <circle cx="72" cy="186" r="4" /><circle cx="100" cy="182" r="4" /><circle cx="128" cy="186" r="4" />
+                            <circle cx="86" cy="202" r="4" /><circle cx="114" cy="202" r="4" /><circle cx="64" cy="216" r="4" />
+                            <circle cx="100" cy="220" r="4" /><circle cx="136" cy="216" r="4" />
+                          </g>
+                          <g class="pat pat-rainbow" fill="none" stroke-width="5" stroke-linecap="round">
+                            <path d="M76 214 Q100 180 124 214" stroke="#f87171" /><path d="M82 214 Q100 188 118 214" stroke="#fbbf24" />
+                            <path d="M88 214 Q100 196 112 214" stroke="#34d399" />
+                          </g>
+                        </g>
+                        <g class="acc acc-scarf">
+                          <path d="M64 160 Q100 180 136 160 L138 174 Q100 194 62 174 Z" fill="#ef4444" />
+                          <path d="M70 166 L72 178 M84 171 L85 183 M100 173 L100 185 M116 171 L115 183 M130 166 L128 178" stroke="#fff" stroke-width="3" opacity=".7" />
+                          <path d="M116 174 L126 206 L112 208 L106 178 Z" fill="#dc2626" />
+                        </g>
+                        <g class="acc acc-bowtie">
+                          <path d="M100 168 L80 157 Q76 168 80 179 Z M100 168 L120 157 Q124 168 120 179 Z" fill="#8b5cf6" />
+                          <circle cx="100" cy="168" r="5.5" fill="#7c3aed" />
+                          <circle cx="86" cy="164" r="1.8" fill="#fff" /><circle cx="114" cy="172" r="1.8" fill="#fff" />
+                        </g>
+                        <g class="b-bib">
+                          <path d="M74 164 Q100 214 126 164 Q100 176 74 164Z" fill="#fff" stroke="#fbcfe8" stroke-width="2" />
+                          <circle cx="100" cy="186" r="5" fill="#fbcfe8" />
+                        </g>
+                      </g>
+
+                      <!-- head -->
+                      <g class="b-head">
+                        <circle cx="40" cy="100" r="14" fill="url(#g-skin)" />
+                        <circle cx="160" cy="100" r="14" fill="url(#g-skin)" />
+                        <circle cx="41" cy="101" r="7" fill="#f6b99a" opacity=".55" />
+                        <circle cx="159" cy="101" r="7" fill="#f6b99a" opacity=".55" />
+                        <g class="hat hat-bunny-ears">
+                          <g transform="rotate(-12 76 44)"><ellipse cx="76" cy="14" rx="13" ry="28" fill="#fff" stroke="#f1e4ea" stroke-width="2" /><ellipse cx="76" cy="17" rx="6.5" ry="19" fill="#fbcfe8" /></g>
+                          <g transform="rotate(12 124 44)"><ellipse cx="124" cy="14" rx="13" ry="28" fill="#fff" stroke="#f1e4ea" stroke-width="2" /><ellipse cx="124" cy="17" rx="6.5" ry="19" fill="#fbcfe8" /></g>
+                        </g>
+                        <circle class="b-face" cx="100" cy="94" r="63" fill="url(#g-skin)" />
+                        <path class="b-hair" d="M96 33 C88 18 108 10 113 22 C116 30 106 34 103 28" fill="none" stroke="#c98b5e" stroke-width="5" stroke-linecap="round" />
+                        <path d="M84 36 C82 28 88 24 92 30" fill="none" stroke="#c98b5e" stroke-width="4" stroke-linecap="round" />
+
+                        <g class="hat hat-beanie">
+                          <path d="M46 62 Q48 18 100 16 Q152 18 154 62 Z" fill="#fb923c" />
+                          <path d="M64 30 L66 58 M82 22 L83 56 M100 20 L100 55 M118 22 L117 56 M136 30 L134 58" stroke="#fdba74" stroke-width="3" />
+                          <path d="M42 68 Q100 48 158 68 L156 56 Q100 38 44 56 Z" fill="#fed7aa" />
+                          <circle cx="100" cy="14" r="11" fill="#fff7ed" />
+                        </g>
+                        <g class="hat hat-bunny">
+                          <path d="M48 54 Q100 18 152 54" fill="none" stroke="#f9a8d4" stroke-width="7" stroke-linecap="round" />
+                        </g>
+                        <g class="hat hat-bear">
+                          <circle cx="58" cy="42" r="17" fill="#a16207" /><circle cx="58" cy="42" r="8" fill="#fcd9a6" />
+                          <circle cx="142" cy="42" r="17" fill="#a16207" /><circle cx="142" cy="42" r="8" fill="#fcd9a6" />
+                          <path d="M50 54 Q100 18 150 54" fill="none" stroke="#854d0e" stroke-width="7" stroke-linecap="round" />
+                        </g>
+                        <g class="hat hat-bow">
+                          <path d="M136 46 L112 30 Q105 46 112 62 Z M136 46 L160 30 Q167 46 160 62 Z" fill="#f472b6" />
+                          <path d="M118 38 Q114 46 118 54 M154 38 Q158 46 154 54" stroke="#fbcfe8" stroke-width="2.5" fill="none" />
+                          <circle cx="136" cy="46" r="7.5" fill="#ec4899" />
+                        </g>
+                        <g class="hat hat-crown">
+                          <path d="M68 40 L72 10 L86 26 L100 4 L114 26 L128 10 L132 40 Z" fill="#facc15" stroke="#eab308" stroke-width="2" stroke-linejoin="round" />
+                          <rect x="66" y="36" width="68" height="9" rx="3" fill="#eab308" />
+                          <circle cx="100" cy="24" r="4" fill="#f43f5e" /><circle cx="80" cy="30" r="3" fill="#38bdf8" /><circle cx="120" cy="30" r="3" fill="#34d399" />
+                        </g>
+                        <g class="hat hat-sunhat">
+                          <ellipse cx="100" cy="46" rx="84" ry="14" fill="#f5d48a" />
+                          <path d="M58 46 Q60 2 100 2 Q140 2 142 46 Z" fill="#f8dfa1" />
+                          <path d="M59 40 Q100 28 141 40 L142 48 Q100 36 58 48 Z" fill="#f472b6" />
+                          <circle cx="132" cy="38" r="6" fill="#fff" /><circle cx="132" cy="38" r="2.5" fill="#fbbf24" />
+                        </g>
+
+                        <ellipse class="b-cheek" cx="62" cy="114" rx="16" ry="10" fill="url(#g-cheek)" />
+                        <ellipse class="b-cheek" cx="138" cy="114" rx="16" ry="10" fill="url(#g-cheek)" />
+
+                        <g class="b-brows" fill="none" stroke="#c98b5e" stroke-width="3" stroke-linecap="round">
+                          <path d="M64 72 Q72 66 82 70" />
+                          <path d="M118 70 Q128 66 136 72" />
+                        </g>
+
+                        <g class="b-eyes eyes-open">
+                          <g class="b-eye"><g class="b-eyeball">
+                            <ellipse cx="74" cy="94" rx="10.5" ry="13" fill="#3b2a22" />
+                            <circle cx="77.5" cy="88.5" r="4" fill="#fff" />
+                            <circle cx="71" cy="99.5" r="2" fill="#fff" opacity=".9" />
+                          </g></g>
+                          <g class="b-eye"><g class="b-eyeball">
+                            <ellipse cx="126" cy="94" rx="10.5" ry="13" fill="#3b2a22" />
+                            <circle cx="129.5" cy="88.5" r="4" fill="#fff" />
+                            <circle cx="123" cy="99.5" r="2" fill="#fff" opacity=".9" />
+                          </g></g>
+                          <g class="b-lids" fill="#ffe2cf">
+                            <path d="M62 94 Q62 78 74 78 Q86 78 86 94 Z" />
+                            <path d="M114 94 Q114 78 126 78 Q138 78 138 94 Z" />
+                          </g>
+                        </g>
+                        <g class="b-eyes eyes-closed" fill="none" stroke="#3b2a22" stroke-width="3.2" stroke-linecap="round">
+                          <path d="M63 94 Q74 103 85 94" />
+                          <path d="M115 94 Q126 103 137 94" />
+                        </g>
+                        <g class="b-eyes eyes-cry" fill="none" stroke="#3b2a22" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M64 87 L83 94 L64 101" />
+                          <path d="M136 87 L117 94 L136 101" />
+                        </g>
+                        <g class="b-eyes eyes-happy" fill="none" stroke="#3b2a22" stroke-width="3.6" stroke-linecap="round">
+                          <path d="M63 98 Q74 84 85 98" />
+                          <path d="M115 98 Q126 84 137 98" />
+                        </g>
+
+                        <g class="acc acc-glasses" fill="#bfe3ff" fill-opacity=".22" stroke="#3b2a22" stroke-width="3">
+                          <circle cx="74" cy="94" r="17" /><circle cx="126" cy="94" r="17" />
+                          <path d="M91 92 Q100 85 109 92" fill="none" /><path d="M57 90 L42 86 M143 90 L158 86" fill="none" />
+                        </g>
+
+                        <ellipse cx="100" cy="108" rx="3.4" ry="2.4" fill="#eea488" />
+
+                        <path class="b-mouth mouth-smile" d="M89 120 Q100 131 111 120" fill="none" stroke="#a8473f" stroke-width="3.4" stroke-linecap="round" />
+                        <g class="b-mouth mouth-o">
+                          <ellipse cx="100" cy="123" rx="6.5" ry="7.5" fill="#a8473f" />
+                          <ellipse cx="100" cy="127" rx="3.6" ry="2.4" fill="#ff8f8f" />
+                        </g>
+                        <g class="b-mouth mouth-laugh">
+                          <path d="M85 117 Q100 142 115 117 Z" fill="#a8473f" stroke="#a8473f" stroke-width="2" stroke-linejoin="round" />
+                          <path d="M92 127 Q100 135 108 127 Q100 124 92 127Z" fill="#ff8f8f" />
+                        </g>
+                        <path class="b-mouth mouth-pout" d="M91 126 Q100 118 109 126" fill="none" stroke="#a8473f" stroke-width="3.4" stroke-linecap="round" />
+                        <g class="b-mouth mouth-cry">
+                          <path d="M83 131 Q83 109 100 109 Q117 109 117 131 Q100 125 83 131Z" fill="#a8473f" />
+                          <path d="M90 128 Q100 120 110 128 Q100 125 90 128Z" fill="#ff8f8f" />
+                        </g>
+                        <path class="b-mouth mouth-sleep" d="M95 123 Q100 126 105 123" fill="none" stroke="#a8473f" stroke-width="3" stroke-linecap="round" />
+
+                        <g class="acc acc-pacifier">
+                          <ellipse cx="100" cy="123" rx="15" ry="9" fill="#a5b4fc" />
+                          <circle cx="100" cy="123" r="4" fill="#818cf8" />
+                          <circle cx="100" cy="133" r="7" fill="none" stroke="#818cf8" stroke-width="3.5" />
+                        </g>
+
+                        <g class="b-cry-tears" fill="#9fd3f7">
+                          <path class="cry-tear" d="M62 102 Q57 112 62 117 Q67 112 62 102Z" />
+                          <path class="cry-tear" d="M138 102 Q133 112 138 117 Q143 112 138 102Z" />
+                          <path class="cry-tear late" d="M64 102 Q59 112 64 117 Q69 112 64 102Z" />
+                          <path class="cry-tear late" d="M136 102 Q131 112 136 117 Q141 112 136 102Z" />
+                        </g>
+                        <path class="b-tear" d="M137 104 Q143 114 137 118 Q131 114 137 104Z" fill="#9fd3f7" />
+
+                        <g class="b-nightcap">
+                          <path d="M44 66 Q60 10 128 20 Q170 30 176 70 Q150 50 100 48 Q66 48 44 66Z" fill="url(#g-cap)" />
+                          <path d="M42 68 Q100 40 160 64" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" />
+                          <circle cx="178" cy="72" r="10" fill="#fff" />
+                          <circle cx="92" cy="32" r="2.4" fill="#fde68a" />
+                          <circle cx="122" cy="30" r="2" fill="#fde68a" />
+                        </g>
+                      </g>
+
+                      <!-- arms -->
+                      <g class="b-arm b-arm-l">
+                        <path d="M56 176 Q40 192 46 210" fill="none" stroke="url(#g-onesie)" stroke-width="20" stroke-linecap="round" />
+                        <circle cx="46" cy="212" r="11" fill="url(#g-skin)" />
+                      </g>
+                      <g class="b-arm b-arm-r">
+                        <path d="M144 176 Q160 192 154 210" fill="none" stroke="url(#g-onesie)" stroke-width="20" stroke-linecap="round" />
+                        <circle cx="154" cy="212" r="11" fill="url(#g-skin)" />
+                      </g>
+
+                      <!-- peekaboo hands -->
+                      <g class="b-peek">
+                        <circle cx="74" cy="94" r="17" fill="url(#g-skin)" stroke="#f0b496" stroke-width="1.5" />
+                        <circle cx="126" cy="94" r="17" fill="url(#g-skin)" stroke="#f0b496" stroke-width="1.5" />
+                        <path d="M66 84 v8 M74 81 v8 M82 84 v8 M118 84 v8 M126 81 v8 M134 84 v8" stroke="#f0b496" stroke-width="1.6" stroke-linecap="round" />
+                      </g>
+
+                      <!-- bottle -->
+                      <g transform="translate(106 126) rotate(-20)">
+                        <g class="b-bottle">
+                          <path d="M0 -5 Q-6 0 0 5 L10 6 L10 -6 Z" fill="#f9c784" />
+                          <rect x="9" y="-9" width="9" height="18" rx="2" fill="#f9a8d4" />
+                          <rect x="18" y="-14" width="48" height="28" rx="9" fill="#ffffff" fill-opacity=".85" stroke="#cbd5e1" stroke-width="1.5" />
+                          <rect class="b-milk" x="20" y="-12" width="44" height="24" rx="7" fill="#fffaf0" stroke="#f1e6d3" />
+                          <path d="M30 -14 v6 M40 -14 v6 M50 -14 v6" stroke="#cbd5e1" stroke-width="1.5" />
+                        </g>
+                      </g>
+                    </g>
+                  </svg>
+                </div>
+                <div class="blanket" aria-hidden="true">
+                  <div class="blanket-cuff"></div>
+                </div>
+              </div>
+
+              <div id="fx" class="fx-layer" aria-hidden="true"></div>
+              <p class="room-hint">tap to tickle · hold to cuddle · stroke their head</p>
+            </div>
+          </section>
+
+          <section class="care">
+            <button type="button" class="care-btn care-feed" data-care="feed">
+              <span class="care-icon">🍼</span>
+              <span>feed</span>
+            </button>
+            <button type="button" class="care-btn care-rock" data-care="rock">
+              <span class="care-icon">🌙</span>
+              <span>rock</span>
+            </button>
+            <button type="button" class="care-btn care-play" data-care="play">
+              <span class="care-icon">🙈</span>
+              <span>peekaboo</span>
+            </button>
+            <button type="button" class="care-btn care-nap" data-care="nap" id="nap-btn">
+              <span class="care-icon">💤</span>
+              <span class="care-label">nap</span>
+            </button>
+            <button type="button" class="care-btn care-cuddle" data-care="cuddle">
+              <span class="care-icon">🧸</span>
+              <span>cuddle</span>
+            </button>
+            <button type="button" class="care-btn care-closet" id="closet-btn" aria-expanded="false" aria-controls="closet">
+              <span class="care-icon">👗</span>
+              <span>closet</span>
+            </button>
+          </section>
+
+          <section id="closet" class="closet" hidden aria-label="Baby's closet">
+            <div class="closet-doors" aria-hidden="true"><span class="door door-l"></span><span class="door door-r"></span></div>
+            <div class="closet-inside">
+              <div class="closet-head">
+                <h3 id="closet-title">Closet</h3>
+                <div class="closet-actions">
+                  <button type="button" class="closet-mini" id="closet-random" title="Surprise outfit">🎲 surprise me</button>
+                  <button type="button" class="closet-mini closet-close" id="closet-close" aria-label="Close closet">done</button>
+                </div>
+              </div>
+              <div class="closet-tabs" role="tablist">
+                <button type="button" role="tab" class="closet-tab is-active" data-tab="onesie">onesie</button>
+                <button type="button" role="tab" class="closet-tab" data-tab="pattern">pattern</button>
+                <button type="button" role="tab" class="closet-tab" data-tab="hat">hats</button>
+                <button type="button" role="tab" class="closet-tab" data-tab="acc">extras</button>
+              </div>
+              <div class="closet-shelf" id="closet-shelf" role="tabpanel"></div>
+            </div>
+          </section>
+
+          <aside class="needs-panel">
+            <div class="needs-header">
+              <h2>Vitals & Mind</h2>
+              <span class="needs-status-chip">
+                <span class="pulse-ring"></span>
+                Live
+              </span>
+            </div>
+
+            <div class="meters-list">
+              <div class="need-item need-hunger">
+                <div class="need-label-row">
+                  <span class="need-label"><span class="need-emoji">🍼</span> hunger</span>
+                  <span class="need-pct" id="val-hunger">70%</span>
+                </div>
+                <meter id="need-hunger" min="0" max="100" value="70"></meter>
+              </div>
+
+              <div class="need-item need-sleep">
+                <div class="need-label-row">
+                  <span class="need-label"><span class="need-emoji">🌙</span> sleep</span>
+                  <span class="need-pct" id="val-sleep">80%</span>
+                </div>
+                <meter id="need-sleep" min="0" max="100" value="80"></meter>
+              </div>
+
+              <div class="need-item need-comfort">
+                <div class="need-label-row">
+                  <span class="need-label"><span class="need-emoji">🧸</span> comfort</span>
+                  <span class="need-pct" id="val-comfort">60%</span>
+                </div>
+                <meter id="need-comfort" min="0" max="100" value="60"></meter>
+              </div>
+
+              <div class="need-item need-curiosity">
+                <div class="need-label-row">
+                  <span class="need-label"><span class="need-emoji">🔍</span> curiosity</span>
+                  <span class="need-pct" id="val-curiosity">90%</span>
+                </div>
+                <meter id="need-curiosity" min="0" max="100" value="90"></meter>
+              </div>
+
+              <div class="need-item need-bond">
+                <div class="need-label-row">
+                  <span class="need-label"><span class="need-emoji">💛</span> bond</span>
+                  <span class="need-pct" id="val-bond">10%</span>
+                </div>
+                <meter id="need-bond" min="0" max="100" value="10"></meter>
+              </div>
+
+              <div class="need-item need-mind">
+                <div class="need-label-row">
+                  <span class="need-label"><span class="need-emoji">🧠</span> mind</span>
+                  <span class="need-pct" id="val-mind">0%</span>
+                </div>
+                <meter id="need-mind" min="0" max="100" value="0"></meter>
+              </div>
+            </div>
+
+            <div class="firsts" id="firsts">
+              <div class="firsts-header">
+                <h3>Memory Bank</h3>
+                <span class="firsts-count" id="know-count-badge">0 facts</span>
+              </div>
+              <ul id="know-list" class="know-list"></ul>
+            </div>
+          </aside>
+        </div>
+
+        <!-- Right Column: Conversation deck next to the baby -->
+        <div class="nursery-right">
+          <section class="conversation-deck" id="conversation-deck" aria-label="Nursery Conversation and Journal">
+            <div class="convo-header">
+              <div class="convo-baby-info">
+                <div class="convo-avatar-wrap">
+                  <div class="convo-avatar" id="convo-avatar" aria-hidden="true">
+                    <span class="avatar-face"></span>
+                  </div>
+                  <span class="presence-indicator" title="Awake and listening"></span>
+                </div>
+                <div class="convo-meta">
+                  <div class="convo-headline">
+                    <h2 id="convo-title">Talking with Pip</h2>
+                    <span class="mood-badge" id="convo-mood-badge">curious</span>
+                  </div>
+                  <p class="convo-sub" id="convo-status-sub">Listening closely · Ready to learn</p>
+                </div>
+              </div>
+
+              <div class="convo-actions">
+                <label class="voice-toggle-pill" title="Toggle audio speech for baby">
+                  <input id="voice-toggle" type="checkbox" checked />
+                  <span class="voice-slider">
+                    <span class="voice-knob"></span>
+                  </span>
+                  <span class="voice-label">
+                    <span class="voice-icon icon-on"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.2L12 5.5v13l-4.8-4H4z" fill="currentColor" fill-opacity=".18"/><path d="M15.6 9.2a4 4 0 0 1 0 5.6"/><path d="M18.4 6.6a7.6 7.6 0 0 1 0 10.8"/></svg></span>
+                    <span class="voice-icon icon-off"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.2L12 5.5v13l-4.8-4H4z" fill="currentColor" fill-opacity=".18"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></svg></span>
+                    <span class="voice-label-text">Voice</span>
+                  </span>
+                </label>
+                <button type="button" id="export-btn" class="convo-icon-btn" title="Save your baby to a file (backup or move to another device)" aria-label="Save baby to a file">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                </button>
+                <button type="button" id="import-btn" class="convo-icon-btn" title="Load a baby from a file" aria-label="Load baby from a file">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                  </svg>
+                </button>
+                <input type="file" id="import-file" accept=".json,application/json" hidden />
+                <button type="button" id="clear-chat-btn" class="convo-icon-btn" title="Clear journal history" aria-label="Clear chat history">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="3 6 5 6 21 6"></polyline>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="journal-viewport" id="journal-viewport">
+              <ol id="journal" class="journal" aria-live="polite"></ol>
+              <div id="journal-empty" class="journal-empty" hidden>
+                <div class="empty-glow-icon">✨</div>
+                <h3>The nursery is quiet</h3>
+                <p>Pip is looking up with curious eyes. Whisper something warm or teach a brand new fact:</p>
+                <div class="starter-chips" id="starter-chips">
+                  <button type="button" class="starter-chip" data-phrase="The moon glows in the night sky">
+                    <span>🌙</span> "The moon glows in the night sky"
+                  </button>
+                  <button type="button" class="starter-chip" data-phrase="I love you very much">
+                    <span>💛</span> "I love you very much"
+                  </button>
+                  <button type="button" class="starter-chip" data-phrase="Water is cool and clear">
+                    <span>💧</span> "Water is cool and clear"
+                  </button>
+                  <button type="button" class="starter-chip" data-phrase="What is your name?">
+                    <span>❓</span> "What is your name?"
+                  </button>
+                </div>
+              </div>
+              <button type="button" id="scroll-bottom-btn" class="scroll-bottom-btn" hidden title="Jump to latest messages">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <polyline points="19 12 12 19 5 12"></polyline>
+                </svg>
+                <span>Latest</span>
+              </button>
+            </div>
+
+            <div class="convo-footer">
+              <div class="quick-topics" id="quick-topics">
+                <span class="quick-topics-label">Quick topics:</span>
+                <div class="topic-chips-scroll">
+                  <button type="button" class="topic-chip" data-topic="Birds have feathers and can fly high">🪶 Birds</button>
+                  <button type="button" class="topic-chip" data-topic="Apples are sweet crunchy fruits">🍎 Apples</button>
+                  <button type="button" class="topic-chip" data-topic="Stars are bright suns far away">⭐ Stars</button>
+                  <button type="button" class="topic-chip" data-topic="Puppies are friendly baby dogs">🐶 Puppies</button>
+                  <button type="button" class="topic-chip" data-topic="Music is rhythm and melody">🎵 Music</button>
+                  <button type="button" class="topic-chip" data-topic="Trees have green leaves and give shade">🌳 Trees</button>
+                </div>
+              </div>
+
+              <form id="talk-form" class="convo-form">
+                <div class="composer-container">
+                  <div class="composer-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                  </div>
+                  <input
+                    id="speech"
+                    type="text"
+                    maxlength="280"
+                    autocomplete="off"
+                    placeholder="Chat or teach: “you know I have a dog” or “the moon is not a star”..."
+                    aria-label="Speech input to chat or teach baby"
+                  />
+                  <button type="submit" id="send-speech-btn" class="send-btn" title="Send message to baby">
+                    <span>Send</span>
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="22" y1="2" x2="11" y2="13"></line>
+                      <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                  </button>
+                </div>
+              </form>
+
+              <div class="convo-hint-bar">
+                <div class="hint-pill">
+                  <span class="hint-bullet">💡</span>
+                  <span class="hint-text"><strong>How to raise:</strong> Chat naturally or teach facts (e.g. <em>“Cats are mammals”</em>). Test what they know: <em>“What is a cat?”</em></span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <div id="welcome" class="welcome" hidden>
+      <form id="welcome-form">
+        <h2>If I had a baby</h2>
+        <p>
+          it would be small, earnest, and a little too curious. It would collect words like treasures
+          and glow when you stay. Name them. They will grow from your voice.
+        </p>
+        <label>
+          baby’s name
+          <input id="name-input" type="text" maxlength="24" placeholder="Pip" required />
+        </label>
+        <label>
+          your name
+          <input id="parent-input" type="text" maxlength="24" placeholder="you" required />
+        </label>
+        <button type="button" id="start-btn">begin raising</button>
+        <p class="privacy-note">Your baby lives in this browser. What you say is only used to make the baby's reply and isn't stored on the server. Use 💾 to keep a backup.</p>
+        <button type="button" class="link-btn" id="welcome-import">or load a saved baby</button>
+      </form>
+    </div>
+
+    <script src="js/nursery.js"></script>
+  </body>
+</html>
