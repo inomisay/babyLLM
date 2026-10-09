@@ -4,6 +4,9 @@ Short clips trimmed and volume-matched from Pixabay sound effects, used under th
 [Pixabay Content License](https://pixabay.com/service/license-summary/) (free to use, no attribution required;
 credited anyway with thanks).
 
+These sound files are **not** covered by the project's MIT License. They stay under the Pixabay
+Content License: you can use them as part of this project, but not sell or redistribute them on their own.
+
 | File | Source | By |
 |---|---|---|
 | cry-1.mp3 | https://pixabay.com/sound-effects/people-baby-crying-463213/ | DRAGON-STUDIO |

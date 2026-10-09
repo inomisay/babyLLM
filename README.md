@@ -124,7 +124,11 @@ python sft.py --eval-only --init checkpoints/baby_chat.pt   # take the reasoning
 
 [BabyLM](https://babylm.github.io/) is a research challenge about the same idea: language models that learn from a child-sized amount of language. Our baby is already at about that scale, and BabyLM now allows learning from a teacher's feedback, much like our caregiver. The [analysis report](analysis/REPORT.md#5-could-our-baby-enter-babylm-someday) explains what it would take to enter a future round.
 
-## Credits
+## License
 
-- Training stories: [TinyStories](https://huggingface.co/datasets/roneneldan/TinyStories) (Eldan & Li, 2023).
-- Baby sounds: Pixabay contributors, used under the Pixabay Content License. Details in [sounds/CREDITS.md](sounds/CREDITS.md).
+The code and the trained baby brain are released under the [MIT License](LICENSE) © 2026 Yasamin Valishariatpanahi.
+
+Some material in this repository comes from others and keeps its own license:
+
+- **Baby sounds** (`sounds/*.mp3`) come from Pixabay contributors under the [Pixabay Content License](https://pixabay.com/service/license-summary/), *not* MIT. You can use them within this project, but not resell or redistribute them on their own. Details are in [sounds/CREDITS.md](sounds/CREDITS.md).
+- **Training stories**: the brain was trained on [TinyStories](https://huggingface.co/datasets/roneneldan/TinyStories) (Eldan & Li, 2023, CDLA-Sharing-1.0). The stories themselves aren't included here.
