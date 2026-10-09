@@ -70,7 +70,7 @@ python grow.py --skip-reading   # only redo the conversation practice
 
 Anyone can visit, name their own baby and raise it, for free. The baby's brain runs **inside each visitor's browser** (a 17 MB download, once), so there's no server to pay for, any number of people can play at once, and nothing they say leaves their device. Each baby is saved in its visitor's browser, and 💾 / 📂 back it up or move it to another device.
 
-**GitHub Pages** (this repository): Settings → Pages → *Deploy from a branch* → `main` / `(root)` → Save. A minute later it's live at `https://<username>.github.io/babyLLM/`.
+**GitHub Pages** (this repository): Settings → Pages → *Deploy from a branch* → `main` / `(root)` → Save. A minute later it's live at `https://<username>.github.io/babyLLM/`. On a free GitHub plan this needs a *public* repository. For a private one, use Hugging Face instead.
 
 **Hugging Face** (free static Space):
 

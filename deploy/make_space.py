@@ -73,7 +73,6 @@ memorize: it was trained to reason over what *you* teach it, and it says when it
 - **Be kind.** Babies don't learn rude words here.
 - **Click once after the page loads** to let the baby make sounds.
 
-Code: https://github.com/inomisay/babyLLM
 Sounds: Pixabay contributors (see `sounds/CREDITS.md`). Stories: TinyStories (Eldan & Li, 2023).
 """
 
