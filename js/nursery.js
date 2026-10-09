@@ -148,7 +148,7 @@ function save(state) {
 
 function pushToServer(st) {
   if (!serverSync || !st || !st.babyName) return;
-  fetch("/api/state", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(st) }).catch(
+  fetch("api/state", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(st) }).catch(
     function () {}
   );
 }
@@ -156,7 +156,7 @@ function pushToServer(st) {
 // Adopt whichever copy is newer: the server's (shared by every port/tab) or this browser's
 function syncFromServer() {
   if (location.protocol === "file:" || !window.fetch) return;
-  fetch("/api/state")
+  fetch("api/state")
     .then(function (r) {
       return r.ok ? r.json() : null;
     })
@@ -189,7 +189,7 @@ function syncFromServer() {
 window.addEventListener("pagehide", function () {
   // last save when the tab closes
   if (serverSync && state && state.babyName && navigator.sendBeacon) {
-    navigator.sendBeacon("/api/state", new Blob([JSON.stringify(state)], { type: "application/json" }));
+    navigator.sendBeacon("api/state", new Blob([JSON.stringify(state)], { type: "application/json" }));
   }
 });
 
@@ -313,8 +313,9 @@ function extractFact(text) {
   const shifted = shiftPerspective(t);
 
   // Pattern 1: Copula ("X is/are/means/was/were/can/has/have Y")
-  let m = shifted.match(/^(.{2,48}?)\s+(is|are|means|was|were|has|have|can)\s+(.+)$/i);
-  if (m && !/^(there|here|what|who|how|why|i|you|he|she|they|it|we)$/i.test(m[1].trim())) {
+  // linking verbs, plus everyday action verbs ("A dog says woof", "Rex eats bones", "Mia lives in a barn")
+  let m = shifted.match(/^(.{2,48}?)\s+(is|are|means|was|were|has|have|can|says|say|eats|eat|likes|like|loves|love|lives|live|plays|play|sleeps|sleep|drinks|drink|makes|make|goes|go|swims|swim|flies|fly|runs|run|sings|sing|wears|wear|needs|need|grows|grow)\s+(.+)$/i);
+  if (m && !/^(there|here|what|who|how|why|i|you|he|she|they|it|we|this|that|these|those|let's|lets)$/i.test(m[1].trim())) {
     const subj = m[1].trim();
     const verb = m[2].toLowerCase();
     const rest = m[3].trim();
@@ -820,7 +821,8 @@ function speak(state, intent, heard) {
     const saved = remember(state, heard);
     if (saved) {
       if (saved.updated) return pick(["Oh! Okay, I'll remember it that way now!", "Got it, " + parent + "!"]);
-      const about = saved.item.kind === "isa" && tokens(saved.item.subject).length <= 3 ? saved.item.subject : "";
+      let about = saved.item.kind === "isa" && tokens(saved.item.subject).length <= 3 ? saved.item.text.slice(0, saved.item.subject.length) : "";
+      if (/^(The|A|An)\b/.test(about)) about = about[0].toLowerCase() + about.slice(1); // "the sea", but "Biscuit"
       return pick(
         (about
           ? ["Ooh, " + about + "! Got it! ✨", "Wow, " + about + "! I'll remember!", "Hehe, " + about + "! Thank you, " + parent + "!"]
@@ -1529,9 +1531,7 @@ function render() {
   if (statusSub) {
     statusSub.innerHTML =
       escapeHtml(babyName + " is " + shownMood + " · " + know.length + (know.length === 1 ? " fact" : " facts")) +
-      (brainOnline
-        ? ' <span class="brain-chip" title="Replies come from the BabyGPT model reasoning over the Memory Bank">🧠 neural brain</span>'
-        : ' <span class="brain-chip offline" title="Run python app.py to give the baby its neural brain">rules only</span>');
+      brainChipHtml();
   }
 
   const chatList = state.chat || [];
@@ -1575,6 +1575,23 @@ function render() {
   }
 }
 
+function brainChipHtml() {
+  if (brainOnline) {
+    const where = brainMode === "browser" ? "in your browser; nothing you say leaves this device" : "on this computer";
+    return ' <span class="brain-chip" id="brain-chip" title="Replies come from the BabyGPT model, running ' + where + '">🧠 neural brain</span>';
+  }
+  if (brainLoading !== null) {
+    return ' <span class="brain-chip loading" id="brain-chip" title="Downloading the baby\'s brain (about 17 MB, once)">🧠 waking up… ' +
+      Math.round(brainLoading * 100) + "%</span>";
+  }
+  return ' <span class="brain-chip offline" id="brain-chip" title="Run python app.py, or open the hosted version, to give the baby its neural brain">rules only</span>';
+}
+
+function renderBrainChip() {
+  const chip = $("brain-chip");
+  if (chip) chip.outerHTML = brainChipHtml();
+}
+
 function updateNapButton() {
   const btn = $("nap-btn");
   if (!btn) return;
@@ -1609,19 +1626,74 @@ const CARE_LOG = {
 
 let brainOnline = false;
 
+// Two ways to think: the Python server (python app.py) when there is one, otherwise the brain
+// runs right here in the browser (static hosting like GitHub Pages: free, private, any number of visitors).
+let brainMode = null; // "server" | "browser" | null
+let brainWorker = null;
+let brainLoading = null; // 0..1 while the in-browser brain downloads
+const brainWaiters = {};
+let brainNextId = 1;
+
 function checkBrain() {
   if (location.protocol === "file:" || !window.fetch) return;
-  fetch("/api/status")
+  fetch("api/status")
     .then(function (r) {
       return r.ok ? r.json() : null;
     })
     .then(function (d) {
-      brainOnline = !!(d && d.status === "online");
-      if (state && state.babyName) render();
+      if (d && d.status === "online") {
+        brainMode = "server";
+        brainOnline = true;
+        if (state && state.babyName) render();
+      } else {
+        startBrowserBrain();
+      }
     })
-    .catch(function () {
-      brainOnline = false;
-    });
+    .catch(startBrowserBrain);
+}
+
+function startBrowserBrain() {
+  if (brainWorker || !window.Worker) return;
+  try {
+    brainWorker = new Worker("web/brain-worker.js");
+  } catch (err) {
+    return;
+  }
+  brainLoading = 0;
+  brainWorker.onmessage = function (e) {
+    const m = e.data || {};
+    if (m.type === "progress") {
+      brainLoading = m.value;
+      if (state && state.babyName) renderBrainChip();
+    } else if (m.type === "ready") {
+      brainLoading = null;
+      brainMode = "browser";
+      brainOnline = true;
+      if (state && state.babyName) render();
+    } else if (m.type === "failed") {
+      brainLoading = null;
+      brainWorker = null;
+      if (state && state.babyName) render();
+    } else if (m.type === "reply" && brainWaiters[m.id]) {
+      brainWaiters[m.id](m.reply ? m.reply.trim() : null);
+      delete brainWaiters[m.id];
+    }
+  };
+  brainWorker.postMessage({ type: "init" });
+}
+
+function askBrowserBrain(payload) {
+  return new Promise(function (resolve) {
+    const id = brainNextId++;
+    brainWaiters[id] = resolve;
+    brainWorker.postMessage({ type: "chat", id: id, payload: payload });
+    setTimeout(function () {
+      if (brainWaiters[id]) {
+        delete brainWaiters[id];
+        resolve(null); // too slow: the rules answer instead
+      }
+    }, 30000);
+  });
 }
 
 // Past turns in the same shape the model was trained on
@@ -1647,11 +1719,12 @@ function factsForModel() {
 
 function askBrain(payload) {
   if (!brainOnline) return Promise.resolve(null);
+  if (brainMode === "browser") return askBrowserBrain(payload);
   const ctrl = window.AbortController ? new AbortController() : null;
   const timer = setTimeout(function () {
     if (ctrl) ctrl.abort();
   }, 15000);
-  return fetch("/api/chat", {
+  return fetch("api/chat", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),

@@ -68,22 +68,31 @@ python grow.py --skip-reading   # only redo the conversation practice
 
 ## Share it with everyone
 
-Anyone can visit, name their own baby and raise it. Each visitor's baby lives in **their own browser**: the server only makes replies and stores nobody's chats or memories. Visitors can back up or move their baby with 💾 / 📂.
+Anyone can visit, name their own baby and raise it, for free. The baby's brain runs **inside each visitor's browser** (a 17 MB download, once), so there's no server to pay for, any number of people can play at once, and nothing they say leaves their device. Each baby is saved in its visitor's browser, and 💾 / 📂 back it up or move it to another device.
+
+**GitHub Pages** (this repository): Settings → Pages → *Deploy from a branch* → `main` / `(root)` → Save. A minute later it's live at `https://<username>.github.io/babyLLM/`.
+
+**Hugging Face** (free static Space):
 
 ```bash
-python deploy/make_space.py                          # build deploy/space/: only what the website needs
-hf auth login                                        # once, with a Hugging Face "write" token
-python deploy/make_space.py --push YOUR_NAME/baby-llm  # free hosting on Hugging Face Spaces
+hf auth login                                          # once, with a "write" token
+python deploy/make_space.py --push YOUR_NAME/baby-llm
 ```
 
-Or host it anywhere that runs Docker: `docker build -t baby-llm deploy/space`, then `docker run -p 7860:7860 baby-llm`. Locally, `python app.py --public` runs the same public mode.
+After retraining the brain, rebuild the browser version and publish again:
 
-In public mode:
-- Only the nursery's own files are served. The brain, code and saves can't be downloaded.
+```bash
+python deploy/export_web.py    # checkpoints/baby_chat.pt -> web/baby.onnx (needs onnx + onnxruntime)
+```
+
+Prefer a server? `python app.py --public`, or `python deploy/make_space.py --docker` for any Docker host. In server mode:
+- Only the nursery's own files are served.
 - Each visitor gets at most 30 replies a minute.
-- Babies won't learn or repeat rude words.
+- Nothing is stored.
 
-**How babies grow when shared:** each baby grows from its own caregiver through its memory, its age stage and its fading baby talk. The shared brain does *not* learn from strangers' chats, which keeps one person's rude or private words out of everyone else's baby. It grows when you run `grow.py` and redeploy.
+In every mode, babies won't learn or repeat rude words.
+
+**How babies grow when shared:** each baby grows from its own caregiver through its memory, its age stage and its fading baby talk. The shared brain does *not* learn from strangers' chats, which keeps one person's rude or private words out of everyone else's baby. It grows when you run `grow.py`, re-export it and publish.
 
 ## Train from scratch
 
@@ -107,7 +116,8 @@ python sft.py --eval-only --init checkpoints/baby_chat.pt   # take the reasoning
 | `checkpoints/` | `baby_chat.pt` (the brain used by the app) and `baby_model_best.pt` (its story-reading base) |
 | `saves/` | `baby.json`: your baby (memories, chat, outfit, needs) |
 | [analysis/](analysis/) | Before/after measurements, charts and the report |
-| [deploy/make_space.py](deploy/make_space.py) | Builds and publishes the public version |
+| [web/](web/) | The brain for browsers: `baby.onnx` (int8, 17 MB), the tokenizer and reply logic in JavaScript |
+| [deploy/](deploy/) | `export_web.py` (brain → browser format), `make_space.py` (build/publish the public version) |
 | [sounds/](sounds/) | Baby sound clips ([credits](sounds/CREDITS.md)) |
 
 ## Where it could go: BabyLM

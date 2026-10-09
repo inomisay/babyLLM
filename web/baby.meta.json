@@ -1,0 +1,1 @@
+{"n_layer": 6, "n_head": 6, "head_dim": 64, "n_positions": 512, "vocab_size": 8192, "stop_token_id": 3, "past_names": ["past_k_0", "past_v_0", "past_k_1", "past_v_1", "past_k_2", "past_v_2", "past_k_3", "past_v_3", "past_k_4", "past_v_4", "past_k_5", "past_v_5"]}

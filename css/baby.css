@@ -1111,3 +1111,8 @@
   cursor: pointer;
   justify-self: center;
 }
+
+.brain-chip.loading {
+  background: #eef2ff;
+  color: #4338ca;
+}
