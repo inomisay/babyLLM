@@ -1116,3 +1116,28 @@
   background: #eef2ff;
   color: #4338ca;
 }
+
+/* ---------- voice picker ---------- */
+
+.voice-select {
+  max-width: 150px;
+  padding: 6px 8px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(59, 42, 34, 0.12);
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.voice-select[hidden] {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .voice-select {
+    max-width: 110px;
+  }
+}

@@ -886,11 +886,30 @@ function voiceScore(v) {
   if (/jenny|aria|ava|emma|michelle|sara|zira|samantha|karen|moira|tessa|libby|sonia|google us english|female/.test(n)) score += 40;
   if (/natural|online|neural/.test(n)) score += 15;
   if (/en-us/i.test(v.lang)) score += 5;
+  // Chrome's online Google voices may not change pitch, so a baby would sound like an adult;
+  // voices installed on the device do follow pitch
+  if (v.localService) score += 10;
+  if (/^google/.test(n)) score -= 10;
   return score;
+}
+
+const VOICE_KEY = "baby-llm-voice";
+
+function savedVoiceName() {
+  try {
+    return localStorage.getItem(VOICE_KEY) || "";
+  } catch (err) {
+    return "";
+  }
 }
 
 function pickVoice() {
   const voices = (window.speechSynthesis && window.speechSynthesis.getVoices()) || [];
+  const saved = savedVoiceName();
+  const chosen = saved && voices.find(function (v) {
+    return v.name === saved;
+  });
+  if (chosen) return chosen; // the person picked this one
   let best = null;
   voices.forEach(function (v) {
     if (voiceScore(v) > 0 && (!best || voiceScore(v) > voiceScore(best))) best = v;
@@ -977,7 +996,7 @@ function voiceSay(line) {
     chosenVoice = chosenVoice || pickVoice();
     if (chosenVoice) u.voice = chosenVoice;
     const isChild = chosenVoice && /\bana\b/i.test(chosenVoice.name);
-    u.pitch = isChild ? 1.35 : 2; // 2 is the browser maximum
+    u.pitch = isChild ? 1.35 : 1.85; // a real child voice needs little help; adult voices are lifted (2 = browser max)
     u.rate = isChild ? 1 : 1.12;
     if (synth.paused) synth.resume(); // Chrome can leave speech paused after the tab was hidden
     synth.speak(u);
@@ -2589,11 +2608,66 @@ if (scrollBottomBtn && journalViewport) {
   });
 }
 
+// ---------------------------------------------------------------- voice picker
+
+function shortVoiceName(v) {
+  return v.name.replace(/^Microsoft\s+/i, "").replace(/\s*-\s*English.*$/i, "").replace(/\s*\(Natural\)/i, " (natural)")
+    .replace(/\s+Online/i, "").trim();
+}
+
+function fillVoicePicker() {
+  const select = $("voice-select");
+  if (!select || !window.speechSynthesis) return;
+  const voices = window.speechSynthesis.getVoices().filter(function (v) {
+    return /^en/i.test(v.lang);
+  });
+  if (!voices.length) return;
+  const hasChild = voices.some(function (v) {
+    return /\bana\b/i.test(v.name);
+  });
+  const saved = savedVoiceName();
+  select.innerHTML =
+    '<option value="">' + (hasChild ? "Auto (child voice)" : "Auto · tip: Edge has a real child voice") + "</option>" +
+    voices
+      .slice()
+      .sort(function (a, b) {
+        return voiceScore(b) - voiceScore(a);
+      })
+      .map(function (v) {
+        const label = (/\bana\b/i.test(v.name) ? "👶 " : "") + shortVoiceName(v) + (v.localService ? "" : " · online");
+        return '<option value="' + escapeHtml(v.name) + '"' + (v.name === saved ? " selected" : "") + ">" + escapeHtml(label) + "</option>";
+      })
+      .join("");
+  select.hidden = false;
+}
+
 if (window.speechSynthesis) {
   chosenVoice = pickVoice();
+  fillVoicePicker();
   window.speechSynthesis.onvoiceschanged = function () {
     chosenVoice = pickVoice();
+    fillVoicePicker();
   };
+}
+
+if ($("voice-select")) {
+  $("voice-select").addEventListener("change", function () {
+    try {
+      if (this.value) localStorage.setItem(VOICE_KEY, this.value);
+      else localStorage.removeItem(VOICE_KEY);
+    } catch (err) {
+      /* remembered for this visit only */
+    }
+    chosenVoice = pickVoice();
+    if (state && state.babyName) {
+      if (!state.voice) {
+        state.voice = true;
+        save(state);
+        render();
+      }
+      voiceSay("Hehe! Hi " + (state.parentName || "") + "! Do you like my voice?");
+    }
+  });
 }
 
 bindBabyTouch();
