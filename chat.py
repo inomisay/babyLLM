@@ -264,6 +264,8 @@ GREETING = re.compile(r"^\s*(hi|hello|hey|hiya|good morning|morning|yo)\b", re.I
 
 # an article followed by a pronoun or function word is broken grammar ("Yay is a we")
 BROKEN_GRAMMAR = re.compile(r"\b(a|an|the)\s+(we|you|i|he|she|they|it|very|the|a|an|and|is|are|to|so|too|my|your)\b", re.I)
+# "friendly and friendly": the same word joined to itself (but "yummy yummy" is fine)
+REPEATED_AND = re.compile(r"\b(\w{3,})\s+and\s+\1\b", re.I)
 
 
 def own_words(history: List[Dict[str, str]]) -> List[str]:
@@ -407,7 +409,7 @@ def baby_reply(model: BabyGPT, tokenizer: Tokenizer, device, *, baby: str, paren
             bad = ungrounded_words(reply, context, tokenizer) + off_script_words(reply, check_context)
         fragments = [w for w in re.findall(r"[A-Za-z]+", reply) if len(w) <= 2 and w.lower() not in SHORT_WORDS]
         broken_action = (reply.count("*") % 2 == 1 or re.search(r"[A-Za-z]\*[A-Za-z]", reply)
-                         or BROKEN_GRAMMAR.search(reply) or fragments)
+                         or BROKEN_GRAMMAR.search(reply) or REPEATED_AND.search(reply) or fragments)
         if TEACH_ACK.search(reply) or contradicts_mood(reply, user_turn, mood) or broken_action:
             bad = bad or ["<invented>"]
         if not bad:

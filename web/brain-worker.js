@@ -40,6 +40,7 @@ const PERSONAL = /\b(i|i'm|my|me|mine|you|your|you're|we|our)\b/;
 const QUOTE = /^\s*(?:you said|did you say|you told me|didn't you say)(?: that)?(?: you)?\s+(.+)/i;
 const GREETING = /^\s*(hi|hello|hey|hiya|good morning|morning|yo)\b/i;
 const BROKEN_GRAMMAR = /\b(a|an|the)\s+(we|you|i|he|she|they|it|very|the|a|an|and|is|are|to|so|too|my|your)\b/i;
+const REPEATED_AND = /\b(\w{3,})\s+and\s+\1\b/i; // "friendly and friendly"
 const TEACH_ACK = /learned something new|i will remember|i'll remember|keep it in my memory|in my memory now|thank you for teaching|thanks for teaching/i;
 const BLOCKED = /\b(fuck\w*|shit\w*|bitch\w*|cunt\w*|dicks?|pussy|whore\w*|slut\w*|bastard\w*|nigg\w*|fag\w*|retard\w*|rape\w*|porn\w*|sex\w*|nazi\w*|kill yourself|kys)\b/i;
 const KIND_REPLY = "Hmm, that's not a nice word. Let's use kind words! 💛";
@@ -345,7 +346,7 @@ async function babyReply(baby, parent, userTurn, facts, history, needs, temperat
       bad = [...ungroundedWords(reply, context), ...offScriptWords(reply, checkContext)];
     }
     const fragments = letters(reply).filter((w) => w.length <= 2 && !SHORT_WORDS.has(w.toLowerCase()));
-    const broken = (reply.split("*").length - 1) % 2 === 1 || /[A-Za-z]\*[A-Za-z]/.test(reply) || BROKEN_GRAMMAR.test(reply) || fragments.length;
+    const broken = (reply.split("*").length - 1) % 2 === 1 || /[A-Za-z]\*[A-Za-z]/.test(reply) || BROKEN_GRAMMAR.test(reply) || REPEATED_AND.test(reply) || fragments.length;
     if (TEACH_ACK.test(reply) || contradictsMood(reply, userTurn, mood) || broken) bad = bad.length ? bad : ["<invented>"];
     if (!bad.length) return quoteCheck(factCheck(reply, impersonalQ ? hits : [], userTurn), userTurn, history);
   }
