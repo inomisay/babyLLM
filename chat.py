@@ -490,8 +490,8 @@ BLOCKED = re.compile(
 KIND_REPLY = "Hmm, that's not a nice word. Let's use kind words! 💛"
 
 # Only the nursery itself is served; the brain, code, data and saves never leave the server.
-PUBLIC_PREFIXES = ("/css/", "/js/", "/sounds/")
-PUBLIC_FILES = {"/", "/index.html"}
+PUBLIC_PREFIXES = ("/css/", "/js/", "/sounds/", "/icons/")
+PUBLIC_FILES = {"/", "/index.html", "/manifest.json"}
 
 
 def clean_needs(raw) -> Optional[Dict[str, float]]:

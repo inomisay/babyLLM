@@ -31,11 +31,11 @@ if sys.stdout.encoding != "utf-8":
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "deploy", "space")
 
-STATIC_FILES = ["index.html", "tokenizer/tokenizer.json", ".nojekyll"]
-STATIC_DIRS = ["css", "js", "sounds", "web"]
-DOCKER_FILES = ["app.py", "chat.py", "train.py", "sft_data.py", "index.html",
+STATIC_FILES = ["index.html", "manifest.json", "tokenizer/tokenizer.json", ".nojekyll"]
+STATIC_DIRS = ["css", "js", "sounds", "web", "icons"]
+DOCKER_FILES = ["app.py", "chat.py", "train.py", "sft_data.py", "index.html", "manifest.json",
                 "tokenizer/tokenizer.json", "tokenizer/vocab.json", "checkpoints/baby_chat.pt"]
-DOCKER_DIRS = ["css", "js", "sounds"]
+DOCKER_DIRS = ["css", "js", "sounds", "icons"]
 
 DOCKERFILE = """\
 FROM python:3.12-slim
